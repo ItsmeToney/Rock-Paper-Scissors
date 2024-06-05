@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style/style.css" />
+    <script defer src="script.js"></script>
+    <title>Rock, Paper, Scissors</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="score__container">
+        <img class="logo" src="./images/logo.svg" alt="logo" />
+        <div class="score__card">
+          <h3 class="score__label">SCORE</h3>
+          <div class="score">0</div>
+        </div>
+      </div>
+
+      <div class="section__choosing">
+        <img class="bg__triangle" src="./images/bg-triangle.svg" alt="" />
+
+        <div class="choice rock">
+          <button class="btn__rock">
+            <img class="rock__img" src="./images/icon-rock.svg" alt="" />
+          </button>
+        </div>
+
+        <div class="choice paper">
+          <button class="btn__paper">
+            <img class="paper__img" src="./images/icon-paper.svg" alt="" />
+          </button>
+        </div>
+
+        <div class="choice scissors">
+          <button class="btn__scissors">
+            <img
+              class="scissors__img"
+              src="./images/icon-scissors.svg"
+              alt=""
+            />
+          </button>
+        </div>
+      </div>
+
+      <div class="section__playing hidden">
+        <div class="player"></div>
+        <div class="player__choice__label">YOU PICKED</div>
+
+        <div class="computer">
+          <div class="computer__card">
+            <div class="front__card"></div>
+            <div class="back__card"></div>
+          </div>
+        </div>
+        <div class="comp__choice__label">THE HOUSE PICKED</div>
+
+        <div class="result hidden">
+          <h2 class="result__label"></h2>
+          <button class="new__game">Play Again</button>
+        </div>
+      </div>
+      <button class="btn__rules">Rules</button>
+    </div>
+    <div class="rules hidden">
+      <h2 class="rules__label">RULES</h2>
+      <img class="rules__img" src="./images/image-rules.svg" alt="" />
+      <button class="btn__close">
+        <img class="close__img" src="./images/icon-close.svg" alt="" />
+      </button>
+    </div>
+    <div class="overlay hidden"></div>
+
+    <div class="attribution">
+      Challenge by
+      <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
+        >Frontend Mentor</a
+      >. Coded by <a href="https://github.com/ItsmeToney">Tony James</a>.
+    </div>
+  </body>
+</html>

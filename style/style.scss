@@ -1,0 +1,455 @@
+@import "variables", "base", "mixin";
+
+@function font_size($size) {
+  @return map-get($font-size, $size);
+}
+
+.container {
+  height: 100vh;
+  overflow: hidden;
+  @include flex-center(column, space-around, center);
+}
+
+.score__container {
+  margin: 0 1.5rem;
+  height: 90px;
+  width: 80%;
+  padding: 0.7rem;
+  border: 3px solid $header_outline;
+  border-radius: $base_border_radius;
+  @include flex-center(row, space-between);
+
+  .logo {
+    height: 70%;
+    margin: auto 0;
+  }
+  .score__card {
+    height: 4rem;
+    width: 4rem;
+    border-radius: $base_border_radius;
+    background-color: #fff;
+
+    @include flex-center(column, space-evenly, center);
+
+    .score__label {
+      letter-spacing: 1px;
+      color: $score-text;
+      font-size: font_size("s");
+      font-weight: $font-weight-medium;
+    }
+    .score {
+      color: $dark-text;
+      font-size: font_size("l");
+      font-weight: $font-weight-medium;
+    }
+  }
+}
+
+////////////////////////////////////////
+
+.section__choosing {
+  height: 38%;
+  position: relative;
+
+  .bg__triangle {
+    width: 100%;
+    height: 90%;
+    display: block;
+    margin: 2rem auto;
+  }
+
+  .paper {
+    position: absolute;
+    @include choice-div($light-blue, $dark-blue);
+    top: 0;
+    transform: translateX(-20%);
+
+    &:hover {
+      opacity: 0.8;
+    }
+    &:active {
+      opacity: 0.5;
+    }
+
+    .btn__paper {
+      @include choice-btn;
+      cursor: pointer;
+    }
+  }
+  .scissors {
+    position: absolute;
+    @include choice-div($light-yellow, $dark-yellow);
+    top: 0;
+    right: 0;
+    transform: translateX(20%);
+
+    &:hover {
+      opacity: 0.8;
+    }
+    &:active {
+      opacity: 0.5;
+    }
+
+    .btn__scissors {
+      @include choice-btn;
+      cursor: pointer;
+    }
+  }
+  .rock {
+    position: absolute;
+    @include choice-div($light-red, $dark-red);
+    bottom: 0;
+    left: 50%;
+    &:hover {
+      opacity: 0.8;
+    }
+    &:active {
+      opacity: 0.5;
+    }
+    transform: translateX(-50%);
+    .btn__rock {
+      @include choice-btn;
+      cursor: pointer;
+    }
+  }
+}
+
+.btn__rules {
+  height: 2rem;
+  width: 5rem;
+  align-self: center;
+  letter-spacing: 2px;
+  padding: 0 0.7rem;
+  text-transform: uppercase;
+  border-radius: $base_border_radius;
+  border: 2px solid white;
+  background-color: rgba(0, 0, 0, 0);
+  color: #fff;
+  // transition: all 0.3s;
+  cursor: pointer;
+}
+
+//////////////rules
+.rules {
+  position: absolute;
+  height: 100vh;
+  width: 100%;
+  inset: 0;
+  background-color: #fff;
+  @include flex-center(column, space-evenly, center);
+  color: $dark-text;
+  font-size: font_size("l");
+  font-weight: $font-weight-bold;
+  z-index: 20;
+  .btn__close {
+    border: none;
+    background-color: #fff;
+
+    &:active {
+      opacity: 0.5;
+    }
+  }
+  transition: all 2s;
+}
+
+////playing section
+
+.section__playing {
+  height: 40%;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(5, 4rem);
+  font-size: font_size("m");
+  font-weight: $font-weight-medium;
+  color: #fff;
+  letter-spacing: 1px;
+
+  .player {
+    grid-column: 1/3;
+    grid-row: 1/3;
+    justify-self: center;
+    position: relative;
+    height: 10rem;
+    width: 10rem;
+
+    .rock {
+      @include choice-div($light-red, $dark-red);
+      @include new-divSize;
+
+      .btn__rock {
+        @include choice-btn;
+        @include new-buttonSize;
+      }
+    }
+    .paper {
+      @include choice-div($light-blue, $dark-blue);
+      @include new-divSize;
+      .btn__paper {
+        @include choice-btn;
+        @include new-buttonSize;
+      }
+    }
+    .scissors {
+      @include choice-div($light-yellow, $dark-yellow);
+      @include new-divSize;
+
+      .btn__scissors {
+        @include choice-btn;
+        @include new-buttonSize;
+      }
+    }
+    //////////////////////
+  }
+  .player__effect::after {
+    position: absolute;
+    content: "";
+    inset: 0;
+    height: 20rem;
+    width: 20rem;
+    border-radius: 50%;
+    background: radial-gradient(#2c3b5a 38%, #293857 38% 50%, #233455 50% 100%);
+    z-index: -3;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .player__choice__label {
+    grid-column: 1/3;
+
+    margin-top: 3rem;
+
+    text-align: center;
+  }
+
+  .computer {
+    grid-column: 5/7;
+    grid-row: 1/3;
+    justify-self: center; ////////////////
+    position: relative;
+    height: 10rem;
+    width: 10rem;
+
+    perspective: 300px;
+
+    .computer__card {
+      height: 100%;
+      width: 100%;
+      border-radius: 50%;
+      position: relative;
+      transition: transform 2s;
+      transform-style: preserve-3d;
+    }
+    .computer__card__flipping {
+      transform: rotateY(-180deg);
+    }
+
+    .front__card,
+    .back__card {
+      height: 100%;
+      width: 100%;
+      border-radius: 50%;
+      filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5));
+      backface-visibility: hidden;
+      position: absolute;
+    }
+    .front__card {
+      background-color: $dark_text;
+    }
+    .back__card {
+      transform: rotateY(-180deg);
+    }
+    /////////////////////////////////////////
+    .rock {
+      @include choice-div($light-red, $dark-red);
+      @include new-divSize;
+
+      .btn__rock {
+        @include choice-btn;
+        @include new-buttonSize;
+      }
+    }
+    .paper {
+      @include choice-div($light-blue, $dark-blue);
+      @include new-divSize;
+
+      .btn__paper {
+        @include choice-btn;
+        @include new-buttonSize;
+      }
+    }
+    .scissors {
+      @include choice-div($light-yellow, $dark-yellow);
+      @include new-divSize;
+
+      .btn__scissors {
+        @include choice-btn;
+        @include new-buttonSize;
+      }
+    }
+    /////////////////////////////////////////
+  }
+
+  .computer__effect::after {
+    position: absolute;
+    content: "";
+    inset: 0;
+    height: 20rem;
+    width: 20rem;
+    border-radius: 50%;
+    background: radial-gradient(#2c3b5a 38%, #293857 38% 50%, #233455 50% 100%);
+    z-index: -3;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .comp__choice__label {
+    grid-column: 5/7;
+    margin-top: 3rem;
+    z-index: 5;
+    text-align: center;
+  }
+
+  .result {
+    grid-column: 1/7;
+    margin-top: 3rem;
+    text-align: center;
+    text-transform: uppercase;
+
+    .result__label {
+      margin: 1rem;
+      font-size: font_size("vl");
+      font-weight: $font-weight-medium;
+    }
+    .new__game {
+      border-radius: 5px;
+      border: none;
+
+      height: 2.5rem;
+      width: 8rem;
+      font-size: font_size("m");
+      font-weight: $font-weight-medium;
+      color: $dark-text;
+      cursor: pointer;
+    }
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+.overlay {
+  height: 100vh;
+  width: 100%;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
+  inset: 0;
+  backdrop-filter: blur(2px);
+  z-index: 10;
+}
+.attribution {
+  font-size: 11px;
+  text-align: center;
+  background: $radial_gradient;
+  a {
+    color: hsl(228, 45%, 44%);
+  }
+}
+
+///media queries
+
+@media (min-width: 1000px) {
+  .score__container {
+    height: 120px;
+    width: 50%;
+    padding: 1rem;
+    .logo {
+      height: 80%;
+    }
+
+    .score__card {
+      height: 5rem;
+      width: 6rem;
+
+      .score__label {
+        font-size: font_size("m");
+      }
+      .score {
+        font-size: font_size("vl");
+      }
+    }
+  }
+
+  .btn__rules {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+  }
+
+  .rules {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 350px;
+    width: 350px;
+    border-radius: 10px;
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5));
+    .rules__label {
+      position: absolute;
+      font-size: font_size("l");
+      top: 1rem;
+      left: 1rem;
+    }
+    .btn__close {
+      position: absolute;
+      top: 1.5rem;
+      right: 1rem;
+    }
+    .rules__img {
+      position: absolute;
+      height: 225px;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
+  .section__choosing {
+    height: 55%;
+    width: 400px;
+  }
+
+  .section__playing {
+    height: 55%;
+
+    transition: all 3s;
+
+    .player__choice__label {
+      grid-column: 1/3;
+      text-align: center;
+    }
+    .comp__choice__label {
+      grid-column: 5/ 7;
+      grid-row: 1/2;
+    }
+    .player {
+      grid-column: 1/3;
+      grid-row: 2/5;
+      margin-top: 2rem;
+      margin-right: 1rem;
+    }
+
+    .computer {
+      margin-top: 2rem;
+      grid-column: 5/7;
+      grid-row: 2/5;
+    }
+    .result {
+      grid-column: 3/5;
+      grid-row: 2/4;
+      margin: 0 3rem;
+      transition: all 0.5s;
+    }
+  }
+}
