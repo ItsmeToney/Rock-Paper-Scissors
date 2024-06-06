@@ -358,7 +358,7 @@
 
 ///media queries
 
-@media (min-width: 1000px) {
+@include desktop {
   .score__container {
     height: 120px;
     width: 50%;

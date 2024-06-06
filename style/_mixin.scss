@@ -34,3 +34,9 @@
   height: 7.5rem;
   width: 7.5rem;
 }
+
+@mixin desktop {
+  @media only screen and (min-width: 1000px) {
+    @content;
+  }
+}
